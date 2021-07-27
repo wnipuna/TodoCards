@@ -5,7 +5,7 @@ import Modal from './Modal';
 const Todo = ({ names, deleteTodoHandler }) => {
 
     const [modalIsOpen, setModalIsOpen] = useState(false);
-
+    const [tid, setTid] = useState(0);
     const deleteHandler = () => {
         setModalIsOpen(true);
     }
@@ -14,23 +14,22 @@ const Todo = ({ names, deleteTodoHandler }) => {
         setModalIsOpen(false);
     }
 
+    const tidHandler = (id) =>{
+        setTid(id);
+    }
+
     return (
         <div>
             {names.map((name) => (
                 <div className='card' key={name.id}>
                     <h2>{name.name}</h2>
                     <div className='actions'>
-                        <button className='btn' onClick={deleteHandler}>Delete</button>
+                        <button className='btn' onClick={()=>{deleteHandler(); tidHandler(name.id);}}>Delete</button>
                     </div>
-                    {modalIsOpen && <Modal onCancel={closeModalHandler} onConfirm={deleteTodoHandler} id={name.id} />}
-                    {modalIsOpen && <Backdrop onCancel={closeModalHandler} />}
                 </div>
-
             ))}
-            {/* <h2>{props.name}</h2>
-        <div className='actions'>
-            <button className='btn' onClick={deleteHandler}>Delete</button>
-        </div> */}
+            {modalIsOpen && <Modal onCancel={closeModalHandler} onConfirm={deleteTodoHandler} id={tid} />}
+            {modalIsOpen && <Backdrop onCancel={closeModalHandler} />}
 
         </div>
     );

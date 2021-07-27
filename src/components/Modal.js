@@ -1,5 +1,5 @@
 const Modal = (props) => {
-
+    console.log(props.id);
     const cancelHandler = () => {
         props.onCancel();
     }
